@@ -331,3 +331,58 @@ PS D:\Home_Works\CS_HW_8> dotnet run
 45(1,1,1)
 */
 
+/* Задача 5. Напишите программу, которая заполнит спирально массив 4 на 4.
+Например, на выходе получается вот такой массив:
+01 02 03 04
+12 13 14 05
+11 16 15 06
+10 09 08 07
+*/
+
+/* Решение 5
+void PrintArray2D (int[,] array)
+{
+  for (int i = 0; i < array.GetLength(0); i++)
+  {
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+      if (array[i,j] / 10 <= 0)
+      Console.Write($" {array[i,j]} ");
+
+      else Console.Write($"{array[i,j]} ");
+    }
+    Console.WriteLine();
+  }
+}
+
+int n = 4;
+int[,] Array2D = new int[n, n];
+
+int temp = 1;
+int i = 0;
+int j = 0;
+
+while (temp <= Array2D.GetLength(0) * Array2D.GetLength(1))
+{
+  Array2D[i, j] = temp;
+  temp++;
+  if (i <= j + 1 && i + j < Array2D.GetLength(1) - 1)
+    j++;
+  else if (i < j && i + j >= Array2D.GetLength(0) - 1)
+    i++;
+  else if (i >= j && i + j > Array2D.GetLength(1) - 1)
+    j--;
+  else
+    i--;
+}
+
+PrintArray2D(Array2D);
+*/
+
+/* Тест 5
+PS D:\Home_Works\CS_HW_8> dotnet run
+ 1  2  3  4 
+12 13 14  5
+11 16 15  6
+10  9  8  7
+*/
