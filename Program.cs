@@ -182,3 +182,78 @@ PS D:\Home_Works\CS_HW_8> dotnet run
 Строка с минимальным значением - 1
 */
 
+/* Задача 3: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+Например, даны 2 матрицы:
+2 4 | 3 4
+3 2 | 3 3
+Результирующая матрица будет:
+18 20
+15 18
+*/
+
+int InputInteNum(string message) //ввод целочисленных чисел
+{
+    Console.Write(message + " ");
+    return Convert.ToInt32(Console.ReadLine());
+}
+
+int[,] CreateArray2D (int Length, int Height, int NumMatrix) //ввод двумерного массива
+{
+    int[,] Array2D = new int[Height,Length];
+    for (int i=0; i < Height; i++)
+    {
+        for (int j=0; j<Length; j++)
+        {
+            Array2D[i,j] = InputInteNum("Введите значение матрицы " + NumMatrix + " с индексом [" + i + "," + j + "]");
+        }
+    }
+    return Array2D;
+}
+
+int[,] MatrixProduct (int[,] Matrix_1, int[,] Matrix_2, int[,] Matrix_res)
+{
+    for(int i=0;i<Matrix_1.GetLength(0);i++)
+    {
+        for(int j=0;j<Matrix_2.GetLength(1);j++)
+        {
+            for(int k=0;k<Matrix_1.GetLength(1);k++)
+            {
+                Matrix_res[i,j] += Matrix_1[i,k] * Matrix_2[k,j];
+            }
+        }
+    }
+    return Matrix_res;
+}
+
+void PrintArray2D(int[,] Array2D)
+{
+    Console.Write("Ваш массив:" + Environment.NewLine);
+
+    for(int i=0;i<Array2D.GetLength(0);i++)
+    {
+        Console.Write("[" + i + "] - ");
+        for(int j=0;j<Array2D.GetLength(1);j++)
+        {
+            Console.Write(Array2D[i,j] + " ");
+        }
+        Console.Write(Environment.NewLine);
+    }
+}
+
+
+int Height_Matrix_1 = InputInteNum("Введите количество строк в 1й матрице");
+int Length_Matrix_1 = InputInteNum("Введите количество столбцов в 1й матрице");
+int Height_Matrix_2 = InputInteNum("Введите количество строк в 2й матрице");
+int Length_Matrix_2 = InputInteNum("Введите количество столбцов в 2й матрице");
+
+if(Height_Matrix_1 != Length_Matrix_2)
+{
+    Console.WriteLine(" Нельзя перемножить ");
+    return;
+}
+
+int[,] Matrix_1 = CreateArray2D(Length_Matrix_1,Height_Matrix_1,1);
+int[,] Matrix_2 = CreateArray2D(Length_Matrix_2,Height_Matrix_2,2);
+int[,] Matrix_res = new int[Length_Matrix_1,Height_Matrix_2];
+Matrix_res = MatrixProduct(Matrix_1,Matrix_2,Matrix_res);
+PrintArray2D(Matrix_res);
